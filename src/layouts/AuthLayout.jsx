@@ -7,7 +7,7 @@ const AuthLayout = () => {
         
         <div className='max-w-7xl mx-auto px-6'>
             <Logo/>
-            <div className='flex'>
+            <div className='flex items-center'>
                 <div className='flex-1'>
                     <Outlet/>
                 </div>
