@@ -7,6 +7,7 @@ import Login from "../pages/Auth/Login/Login";
 import Register from "../pages/Auth/Register/Register";
 import PriveteRoute from "./PriveteRoute";
 import Rider from "../pages/Rider/Rider";
+import SendParcel from "../pages/SendParcel/SendParcel";
 
 const router = createBrowserRouter([
   {
@@ -18,10 +19,20 @@ const router = createBrowserRouter([
         Component: Home,
       },
       {
-        path: '/rider',
-        element: <PriveteRoute>
-          <Rider/>
-        </PriveteRoute>
+        path: "/rider",
+        element: (
+          <PriveteRoute>
+            <Rider />
+          </PriveteRoute>
+        ),
+      },
+      {
+        path: "/send-parcel",
+        element: (
+          <PriveteRoute>
+            <SendParcel />
+          </PriveteRoute>
+        ),
       },
       {
         path: "/coverage",
