@@ -1,14 +1,19 @@
 import React from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { useLoaderData } from "react-router";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAuth from "../../hooks/useAuth";
 
 const SendParcel = () => {
   const {
     register,
     handleSubmit,
     control,
-    formState: { errors },
+    // formState: { errors },
   } = useForm();
+  const {user} = useAuth()
+  const axiosSecure = useAxiosSecure()
   const serviceCenters = useLoaderData();
   const regionsDuplicate = serviceCenters.map(c => c.region);
   const regions = [...new Set(regionsDuplicate)];
@@ -21,11 +26,52 @@ const SendParcel = () => {
     return districts;
   };
 
-
   const handleSendParcel = data => {
     console.log(data);
-    const sameDistrict = data.senderDistrict === data.receiverDistrict
-    console.log(sameDistrict);
+    const parcelWeight = parseFloat(data.parcelWeight);
+    const isDocument = data.parcelType === "document";
+    const isSameDistrict = data.senderDistrict === data.receiverDistrict;
+
+    let cost = 0;
+    if (isDocument) {
+      cost = isSameDistrict ? 60 : 80;
+    } else {
+      if (parcelWeight <= 3) {
+        cost = isSameDistrict ? 110 : 150;
+      } else {
+        const minCharge = isSameDistrict ? 110 : 150;
+        const extraWeight = parcelWeight - 3;
+        const extraCharge = isSameDistrict
+          ? extraWeight * 40
+          : extraWeight * 40 + 40;
+        cost = minCharge + extraCharge;
+      }
+    }
+    console.log({ isDocument, isSameDistrict, cost });
+
+    // sweet alert
+    Swal.fire({
+      title: "Agree with the Cost?",
+      text: `You will be charged ${cost} taka!`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "I Agree",
+    }).then(result => {
+      if (result.isConfirmed) {
+        //save the parcel info to database
+        axiosSecure.post('/parcels', data).then(res =>{
+          console.log('after saving parcel', res.data);
+        })
+
+        // Swal.fire({
+        //   title: "Canceled!",
+        //   text: "Your parcel has been Canceled.",
+        //   icon: "success",
+        // });
+      }
+    });
   };
   return (
     <div>
@@ -92,7 +138,9 @@ const SendParcel = () => {
             <input
               type="text"
               {...register("senderName")}
+              defaultValue={user?.displayName}
               className="input w-full"
+              readOnly
               placeholder="Enter Sender name."
             />
 
@@ -102,6 +150,8 @@ const SendParcel = () => {
               type="email"
               {...register("senderEmail")}
               className="input w-full"
+              defaultValue={user?.email}
+              readOnly
               placeholder="Enter Sender Email."
             />
 
