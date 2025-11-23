@@ -55,7 +55,7 @@ const MyParcels = () => {
       parcelName: parcel.parcelName,
     };
     const res = await axiosSecure.post("/create-checkout-session", paymentInfo);
-    window.location.href = res.data.url;
+    window.location.assign(res.data.url);
   };
 
   return (
@@ -83,7 +83,7 @@ const MyParcels = () => {
                 <td>{parcel.cost}</td>
                 <td>
                   {parcel.paymentStatus === "paid" ? (
-                    <span>Paid</span>
+                    <span className="bg-green-600 btn btn-sm text-white">Paid</span>
                   ) : (
                     <button
                       onClick={() => handlePayment(parcel)}
