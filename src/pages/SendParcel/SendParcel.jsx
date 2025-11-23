@@ -47,8 +47,7 @@ const SendParcel = () => {
         cost = minCharge + extraCharge;
       }
     }
-    console.log({ isDocument, isSameDistrict, cost });
-
+    data.cost = cost
     // sweet alert
     Swal.fire({
       title: "Agree with the Cost?",
