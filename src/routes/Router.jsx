@@ -14,6 +14,7 @@ import Payment from "../pages/Dashboard/Payment/Payment";
 import PaymentSuccess from "../pages/Dashboard/Payment/PaymentSuccess";
 import PaymentCancelled from "../pages/Dashboard/Payment/PaymentCancelled";
 import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
+import ApproveRiders from "../pages/Dashboard/ApproveRiders/ApproveRiders";
 
 const router = createBrowserRouter([
   {
@@ -74,20 +75,27 @@ const router = createBrowserRouter([
       {
         path: "my-parcels",
         element: <MyParcels />,
-      },{
-        path:'payment-history',
-        Component: PaymentHistory
+      },
+      {
+        path: "payment-history",
+        Component: PaymentHistory,
       },
       {
         path: "payment/:parcelId",
         Component: Payment,
-      },{
-        path:'payment-success',
-        Component: PaymentSuccess
-      },{
-        path: 'payment-cancelled',
-        Component: PaymentCancelled
-      }
+      },
+      {
+        path: "payment-success",
+        Component: PaymentSuccess,
+      },
+      {
+        path: "approve-riders",
+        Component: ApproveRiders,
+      },
+      {
+        path: "payment-cancelled",
+        Component: PaymentCancelled,
+      },
     ],
   },
 ]);
