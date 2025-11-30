@@ -303,15 +303,7 @@ const SendParcel = () => {
               className="input w-full"
               placeholder="Enter Receiver Address."
             />
-
-            {/* receiver Description */}
-            <label className="label">Parcel Description</label>
-            <input
-              type="textArea"
-              {...register("receiverDescription")}
-              className="textarea w-full"
-              placeholder="Enter Parcel Description."
-            />
+            
           </fieldset>
         </div>
 
