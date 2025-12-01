@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import { FaTrashAlt, FaUserCheck } from "react-icons/fa";
+import { FaEye, FaTrashAlt, FaUserCheck } from "react-icons/fa";
 import { IoPersonRemove } from "react-icons/io5";
 import Swal from "sweetalert2";
 
@@ -36,6 +36,10 @@ const updateInfo = { status: status, email: rider.email };
   };
   const handleRejection = rider =>{
     updateRiderStatus(rider,'Rejected')
+  }
+
+  const handleRiderDetails = rider =>{
+    console.log(rider);
   }
   return (
     <div>
@@ -72,6 +76,12 @@ const updateInfo = { status: status, email: rider.email };
                   </p>
                 </td>
                 <td>
+                  <button
+                    onClick={() => handleRiderDetails(rider)}
+                    className="btn">
+                    <FaEye />
+                  </button>
+
                   <button
                     onClick={() => handleApproval(rider)}
                     className="btn">

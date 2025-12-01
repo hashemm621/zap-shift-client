@@ -29,7 +29,7 @@ const Rider = () => {
   const riderRegion = useWatch({ control, name: "region" });
 
   const handleRiderApplication = data => {
-    console.log(data);
+    data.photoURL = user.photoURL
     axiosSecure.post("/riders", data).then(res => {
       if (res.data.insertedId) {
         Swal.fire({

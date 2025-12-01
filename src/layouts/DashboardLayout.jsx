@@ -1,9 +1,11 @@
 import React from "react";
 import { CiDeliveryTruck } from "react-icons/ci";
-import { FaMotorcycle, FaRegCreditCard } from "react-icons/fa";
+import { FaMotorcycle, FaRegCreditCard, FaUsers } from "react-icons/fa";
 import { Link, NavLink, Outlet } from "react-router";
+import useRole from "../hooks/useRole";
 
 const DashboardLayout = () => {
+  const { role } = useRole();
   return (
     <div className="drawer lg:drawer-open max-w-7xl mx-auto px-5">
       <input
@@ -78,7 +80,7 @@ const DashboardLayout = () => {
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="My Parcels">
                 {/* Home icon */}
-                <CiDeliveryTruck size={20}/>
+                <CiDeliveryTruck size={20} />
                 <span className="is-drawer-close:hidden">My Parcels</span>
               </Link>
             </li>
@@ -89,21 +91,40 @@ const DashboardLayout = () => {
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Payment History">
                 {/* Home icon */}
-                <FaRegCreditCard size={20}/>
+                <FaRegCreditCard size={20} />
                 <span className="is-drawer-close:hidden">Payment History</span>
               </Link>
             </li>
 
-            <li>
-              <Link
-                to="approve-riders"
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Approve Riders">
-                {/* Home icon */}
-                <FaMotorcycle size={20}/>
-                <span className="is-drawer-close:hidden">Approve Riders</span>
-              </Link>
-            </li>
+            {role === "admin" && (
+              <>
+                <li>
+                  <Link
+                    to="approve-riders"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Approve Riders">
+                    {/* Home icon */}
+                    <FaMotorcycle size={20} />
+                    <span className="is-drawer-close:hidden">
+                      Approve Riders
+                    </span>
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to="users-management"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Users Management">
+                    {/* Home icon */}
+                    <FaUsers size={20} />
+                    <span className="is-drawer-close:hidden">
+                      Users Management
+                    </span>
+                  </Link>
+                </li>
+              </>
+            )}
 
             {/* List item */}
             <li>
