@@ -24,7 +24,7 @@ const Forbidden = () => {
           {" "}
           Go to Home
         </Link>
-        <Link className="btn btn-secondary" to="/dashboard">
+        <Link className="btn btn-secondary" to="/dashboard/my-parcels">
           {" "}
           Go to Dashboard
         </Link>
