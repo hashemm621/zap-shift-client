@@ -54,7 +54,8 @@ const updateInfo = { status: status, email: rider.email };
               <th>Name</th>
               <th>Email</th>
               <th>District</th>
-              <th>Status</th>
+              <th>Application Status</th>
+              <th>Work Status</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -75,6 +76,7 @@ const updateInfo = { status: status, email: rider.email };
                     {rider.status}
                   </p>
                 </td>
+                <td>{rider.workStatus}</td>
                 <td>
                   <button
                     onClick={() => handleRiderDetails(rider)}

@@ -117,7 +117,7 @@ const Rider = () => {
               type="text"
               {...register("address")}
               className="input w-full"
-              placeholder="Sender Address"
+              placeholder="Rider Address"
             />
           </fieldset>
           {/* receiver Details */}
