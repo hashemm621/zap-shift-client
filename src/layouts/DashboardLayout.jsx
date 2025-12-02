@@ -1,6 +1,6 @@
 import React from "react";
 import { CiDeliveryTruck } from "react-icons/ci";
-import { FaMotorcycle, FaRegCreditCard, FaUsers } from "react-icons/fa";
+import { FaMotorcycle, FaRegCreditCard, FaTasks, FaUsers } from "react-icons/fa";
 import { Link, NavLink, Outlet } from "react-router";
 import useRole from "../hooks/useRole";
 import { RiEBikeFill } from "react-icons/ri";
@@ -72,9 +72,7 @@ const DashboardLayout = () => {
                 <span className="is-drawer-close:hidden">Homepage</span>
               </Link>
             </li>
-
             {/* our dashboard links */}
-
             <li>
               <Link
                 to="my-parcels"
@@ -85,7 +83,6 @@ const DashboardLayout = () => {
                 <span className="is-drawer-close:hidden">My Parcels</span>
               </Link>
             </li>
-
             <li>
               <Link
                 to="payment-history"
@@ -96,7 +93,24 @@ const DashboardLayout = () => {
                 <span className="is-drawer-close:hidden">Payment History</span>
               </Link>
             </li>
-
+             {/* links only rider */}
+            {role === "rider" && (
+              <>
+                <li>
+                  <Link
+                    to="assigned-deliveries"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Assigned Deliveries">
+                    {/* Home icon */}
+                    <FaTasks size={20} />
+                    <span className="is-drawer-close:hidden">
+                      Assigned Deliveries
+                    </span>
+                  </Link>
+                </li>
+              </>
+            )}
+             {/* links only admin */}
             {role === "admin" && (
               <>
                 <li>
@@ -118,7 +132,7 @@ const DashboardLayout = () => {
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Assign Riders">
                     {/* Home icon */}
-                    <RiEBikeFill  size={20} />
+                    <RiEBikeFill size={20} />
                     <span className="is-drawer-close:hidden">
                       Assign Riders
                     </span>
@@ -139,7 +153,6 @@ const DashboardLayout = () => {
                 </li>
               </>
             )}
-
             {/* List item */}
             <li>
               <button

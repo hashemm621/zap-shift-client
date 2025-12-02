@@ -1,12 +1,14 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { useRef, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const AssignRiders = () => {
   const [selectedParcel, setSelectedParcel] = useState(null);
   const axiosSecure = useAxiosSecure();
   const riderModalRef = useRef();
-  const { data: parcels = [] } = useQuery({
+  const queryClient = useQueryClient();
+  const { data: parcels = [], refetch: parcelRefetch } = useQuery({
     queryKey: ["parcels", "pending-pickup"],
     queryFn: async () => {
       const res = await axiosSecure.get(
@@ -16,6 +18,7 @@ const AssignRiders = () => {
     },
   });
 
+  // todo invalided query after assign a rider
   const { data: riders = [] } = useQuery({
     queryKey: ["riders", selectedParcel?.senderDistrict, "available"],
     enabled: !!selectedParcel,
@@ -40,7 +43,26 @@ const AssignRiders = () => {
       riderName: rider.name,
       parcelId: selectedParcel._id,
     };
-    axiosSecure.patch(``, riderAssignInfo);
+    axiosSecure
+      .patch(`/parcels/${selectedParcel._id}`, riderAssignInfo)
+      .then(res => {
+        if (res.data.modifiedCount) {
+          riderModalRef.current.close();
+          parcelRefetch();
+          queryClient.invalidateQueries([
+            "riders",
+            selectedParcel?.senderDistrict,
+            "available",
+          ]);
+          Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: `Rider has been assigned`,
+            showConfirmButton: false,
+            timer: 2000,
+          });
+        }
+      });
   };
   return (
     <div>
@@ -73,7 +95,7 @@ const AssignRiders = () => {
                   <button
                     onClick={() => openAssignRiderModal(parcel)}
                     className="btn btn-primary text-black btn-sm">
-                    Assign Rider
+                    Find Rider
                   </button>
                 </td>
               </tr>
