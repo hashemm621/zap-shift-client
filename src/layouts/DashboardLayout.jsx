@@ -4,6 +4,7 @@ import { FaMotorcycle, FaRegCreditCard, FaTasks, FaUsers } from "react-icons/fa"
 import { Link, NavLink, Outlet } from "react-router";
 import useRole from "../hooks/useRole";
 import { RiEBikeFill } from "react-icons/ri";
+import { MdTaskAlt } from "react-icons/md";
 
 const DashboardLayout = () => {
   const { role } = useRole();
@@ -105,6 +106,18 @@ const DashboardLayout = () => {
                     <FaTasks size={20} />
                     <span className="is-drawer-close:hidden">
                       Assigned Deliveries
+                    </span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="completed-deliveries"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Completed Deliveries">
+                    {/* Home icon */}
+                    <MdTaskAlt  size={20} />
+                    <span className="is-drawer-close:hidden">
+                      Completed Deliveries
                     </span>
                   </Link>
                 </li>
