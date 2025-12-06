@@ -15,22 +15,24 @@ const Navbar = () => {
   };
   const links = (
     <>
+      
+      <li>
+        <NavLink to="/send-parcel">Send a Parcel</NavLink>
+      </li>
+
+      {user && (
+        <>
+          <li>
+            <NavLink to="/dashboard/my-parcels">My Parcels</NavLink>
+          </li>
+        </>
+      )}
       <li>
         <NavLink to="">About Us</NavLink>
       </li>
       <li>
-        <NavLink to="/send-parcel">Send Parcel</NavLink>
+        <NavLink to="/coverage">Coverage Areas</NavLink>
       </li>
-      <li>
-        <NavLink to="/coverage">Coverage</NavLink>
-      </li>
-
-
-      {
-        user && <><li>
-        <NavLink to="/dashboard/my-parcels">My Parcels</NavLink>
-      </li></>
-      }
     </>
   );
   return (
@@ -85,10 +87,10 @@ const Navbar = () => {
         )}
 
         <Link
-            className="btn btn-primary text-black mx-4"
-            to="/rider">
-            Be a Rider
-          </Link>
+          className="btn btn-primary text-black mx-4"
+          to="/rider">
+          Be a Rider
+        </Link>
       </div>
     </div>
   );
